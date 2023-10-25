@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
@@ -28,7 +29,10 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+
+
+        $types = Type::all();
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -39,7 +43,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $this->validation($request->all());
         $project = new Project;
         $project->fill($data);
         $project->save();
@@ -65,7 +69,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
@@ -100,8 +106,9 @@ class ProjectController extends Controller
             $data,
             [
                 'title' => 'required|string|max:20',
-                'description' => "required|text",
-                "image" => "required|text",
+                'description' => "required",
+                "image" => "required",
+                "type_id" => "required"
             ],
             [
                 'title.required' => 'Il nome è obbligatorio',
@@ -111,6 +118,9 @@ class ProjectController extends Controller
                 'description.required' => 'La descrizione è obbligatoria',
 
                 'image.required' => 'L\'immagine è obbligatoria',
+
+                'type_id.required' => 'Il tipo è obbligatorio',
+
             ]
         )->validate();
 

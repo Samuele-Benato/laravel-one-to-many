@@ -25,16 +25,7 @@
                 @enderror
             </div>
 
-            <div class="col-6">
-                <label for="description">Descrizione</label>
-                <textarea name="description" id="description" class="form-control" rows="6">{{ $project->description }}</textarea>
-            </div>
-            @error('description')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-            </div>
-
-            <div class="col-6">
+            <div class="col-4">
                 <label for="image" class="form-label">Immagine</label>
                 <input type="text" id="image" name="image"
                     class="form-control @error('image') is-invalid @enderror"
@@ -44,8 +35,33 @@
                 @enderror
             </div>
 
-            <button class="btn btn-success">Salva</button>
+            <div class="col-4">
+                <label for="type_id" class="form-label">Tipo</label>
+                <select name="type_id" id="type_id" class="form-select @error('type_id') is-invalid @enderror">
+                    <option value="">Seleziona il tipo</option>
+                    @foreach ($types as $type)
+                        <option value="{{ $type->id }}" @if (old('type_id') ?? $project->type_id == $type->id) selected @endif>
+                            {{ $type->label }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('type_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
 
+            <div class="col-12">
+                <label for="description">Descrizione</label>
+                <textarea name="description" id="description" class="form-control" rows="3">{{ $project->description }}</textarea>
+            </div>
+            @error('description')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+
+            <button class="btn btn-success">Salva</button>
+            </div>
         </form>
     </section>
 @endsection

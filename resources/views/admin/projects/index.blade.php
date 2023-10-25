@@ -15,6 +15,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Title</th>
                             <th scope="col">Description</th>
+                            <th scope="col">Type</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -25,6 +26,7 @@
                                 <th scope="row">{{ $project->id }}</th>
                                 <td scope="col">{{ $project->title }}</td>
                                 <td scope="col">{{ $project->description }}</td>
+                                <td scope="col">{{ $project->type?->label }}</td>
                                 <td scope="col">
                                     <a class="btn btn-sm btn-success" href="{{ route('admin.projects.show', $project) }}">
                                         Dettaglio

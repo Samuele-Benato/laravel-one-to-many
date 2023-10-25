@@ -14,6 +14,10 @@
                     <div class="col-4">
                         <strong>Title: </strong> {{ $project->title }}
                     </div>
+                    <div class="col-4">
+                        <strong>Type: </strong>
+                        {{ $project->type ? $project->type->label : 'Nessun type' }}
+                    </div>
                     <div class="col-12">
                         <strong>Description: </strong> {{ $project->description }}
                     </div>
